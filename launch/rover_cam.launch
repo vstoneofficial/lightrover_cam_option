@@ -1,0 +1,18 @@
+<launch>
+  <!-- uvc_cam node -->
+  <node pkg="uvc_camera" type="uvc_camera_node" name="lightrover_uvc_cam" />
+
+  <!-- lightrover_cam -->
+  <node pkg="lightrover_cam_option" type="color_detect.py" name="color_detect" >
+    <remap from="image" to="/image_raw" />
+  </node>
+  <node pkg="lightrover_cam_option" type="rover_cam_controller.py" name="rover_cam_controller" >
+    <remap from="pose" to="/color_position" />
+  </node>
+
+  <!-- light_rover -->
+  <node pkg="lightrover_ros" type="i2c_controller.py" name="rover_i2c_controller" />
+  <node pkg="lightrover_ros" type="odometry.py" name="rover_odometry" />
+  <node pkg="lightrover_ros" type="pos_controller.py" name="rover_pos" />
+
+</launch>
