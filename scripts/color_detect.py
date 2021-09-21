@@ -29,10 +29,13 @@ def callback(ros_image):
 
 def color_detect(image):
     global pose
+    #画像の大きさを取得
     h,w,_ = image.shape
+    #画像をBGRからHSVに変換
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    #hsvの認識範囲指定
     lower_color = np.array([168,100,100])
-    upper_color = np.array([188,255,255])
+    upper_color = np.array([179,255,255])
     mask = cv2.inRange(hsv, lower_color, upper_color)  
 
     _, contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -47,9 +50,11 @@ def color_detect(image):
     
     if len(rects) > 0:
         rect = max(rects, key=(lambda x:x[2] * x[3]))
+        #検出範囲に赤枠を描写
         cv2.rectangle(image, tuple(rect[0:2]), tuple(rect[0:2] + rect[2:4]), (0, 0, 255), thickness=2)
         cv2.imshow('image',image)
     
+        #検出範囲の面積を算出
         area = np.array(list(map(cv2.contourArea,contours)))
         size = np.max(area)/(h*w)
 
@@ -57,6 +62,7 @@ def color_detect(image):
             max_idx = np.argmax(area)
             max_area = area[max_idx]
             result = cv2.moments(contours[max_idx])
+            #検出範囲の左右中心を算出
             x = float(w/2-int(result["m10"]/result["m00"]))/(w/2)
             print([x,size])
     

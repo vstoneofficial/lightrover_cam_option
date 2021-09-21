@@ -15,11 +15,13 @@ Z_L_TH = 0.01
 def call_back(data):
         global speed, X_TH, Z_TH
 
+        #検出された色の大きさが一定範囲内であれば前進する
         if data.position.z < Z_H_TH and data.position.z > Z_L_TH:
                 speed.linear.x = (Z_H_TH-data.position.z)*0.2
         else:
                 speed.linear.x = 0.0
 
+        #指定範囲より外にいれば検出された方向を向く
         if abs(data.position.x) > X_TH:
                 speed.angular.z = data.position.x*0.8
         else:

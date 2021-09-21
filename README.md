@@ -1,19 +1,6 @@
-環境構築は以下のコマンドを実行
+# lightrover_cam_option
 
-sudo apt install libv4l-dev v4l-utils qv4l2
-
-git clone https://github.com/ros-perception/image_common.git
-
-catkin build
-
-git clone https://github.com/ros-drivers/camera_umd.git
-
-catkin build
-
-git clone -b melodic https://github.com/ros-perception/vision_opencv.git
-
-catkin build
-
-git clone https://github.com/ros-perception/image_pipeline.git
-
-catkin build
+ライトローバーカメラオプションのサンプルROSパッケージです。  
+ライトローバーについては、[製品ページ](https://www.vstone.co.jp/products/lightrover/index.html)をご覧ください。  
+またライトローバーやサンプルプログラムの使用方法等は、[ライトローバーWEBドキュメント](https://vstoneofficial.github.io/lightrover_webdoc/)をご覧ください。  
+カメラオプションの使用方法は、ライトローバーWEBドキュメントの[カメラオプション](https://vstoneofficial.github.io/lightrover_webdoc/option/cam/camOption/)をご覧ください。
