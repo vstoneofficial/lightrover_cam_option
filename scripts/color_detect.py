@@ -52,7 +52,7 @@ def color_detect(image):
         rect = max(rects, key=(lambda x:x[2] * x[3]))
         #検出範囲に赤枠を描写
         cv2.rectangle(image, tuple(rect[0:2]), tuple(rect[0:2] + rect[2:4]), (0, 0, 255), thickness=2)
-        #cv2.imshow('image',image)
+        cv2.imshow('image',image)
     
         #検出範囲の面積を算出
         area = np.array(list(map(cv2.contourArea,contours)))
