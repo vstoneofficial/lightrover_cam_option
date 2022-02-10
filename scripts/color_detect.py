@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 #このプログラムは、カメラで特定の色を検出するノードです。
@@ -20,8 +20,8 @@ def callback(ros_image):
     try:
         print('Get image')
         frame = bridge.imgmsg_to_cv2(ros_image, "bgr8")
-    except CvBridgeError, e:
-        print e
+    except CvBridgeError as e:
+        print(e)
     input_image = np.array(frame, dtype=np.uint8)
 
     color_detect(input_image)
@@ -38,7 +38,7 @@ def color_detect(image):
     upper_color = np.array([179,255,255])
     mask = cv2.inRange(hsv, lower_color, upper_color)  
 
-    _, contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     rects = []
     for contour in contours:
         approx = cv2.convexHull(contour)
@@ -52,7 +52,7 @@ def color_detect(image):
         rect = max(rects, key=(lambda x:x[2] * x[3]))
         #検出範囲に赤枠を描写
         cv2.rectangle(image, tuple(rect[0:2]), tuple(rect[0:2] + rect[2:4]), (0, 0, 255), thickness=2)
-        cv2.imshow('image',image)
+        #cv2.imshow('image',image)
     
         #検出範囲の面積を算出
         area = np.array(list(map(cv2.contourArea,contours)))
